@@ -14,6 +14,12 @@ namespace SecondFactorAuthenticator
         public readonly static string ADAPTER_DESCRIPTION = "USER_UNREGISTERED";
         public readonly static string PAGE_TITLE = "PAGE_TITLE";
 
+        /// <summary>
+        /// Method to return a localized message reading it from resource files.
+        /// </summary>
+        /// <param name="MessageId">The ID of the message to be returned.</param>
+        /// <param name="lcid">The localization ID of the culture to be used for the message.</param>
+        /// <returns>The message localized.</returns>
         public static string getMessage(string MessageId, int lcid)
         {
             try
