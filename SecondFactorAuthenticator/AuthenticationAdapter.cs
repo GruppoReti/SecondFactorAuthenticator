@@ -15,17 +15,12 @@ namespace SecondFactorAuthenticator
             try
             {
                 IPHostEntry entry = Dns.GetHostEntry(ipAddress);
-                if (entry != null)
-                {
-                    return entry.HostName;
-                }
+                return (entry != null) ? entry.HostName : "unknown";
             }
-            catch (SocketException)
+            catch
             {
-                return "Unknown";
+                return "unknown";
             }
-
-            return null;
         }
 
         public IAdapterPresentation BeginAuthentication(Claim identityClaim, HttpListenerRequest request, IAuthenticationContext context)
@@ -63,29 +58,29 @@ namespace SecondFactorAuthenticator
         {
             claims = null;
 
-            IAdapterPresentation result = new AdapterPresentation(Messages.UNSUPPORTED_DB, false);
+            IAdapterPresentation result = new AdapterPresentation(AdapterMessages.UNSUPPORTED_DB, false);
             string userid = (string)context.Data["userid"];
             string hostname = GetHostName(request.RemoteEndPoint.Address.ToString());
-
-            if (Resources.DatabaseType == "JSON")
+            
+            if (Resources.Database.DatabaseType == "JSON")
             {
-                if (Resources.ConnectionString == null)
+                if (Resources.Database.ConnectionString == null)
                 {
-                    result = new AdapterPresentation(Messages.WRONG_DB, false);
+                    result = new AdapterPresentation(AdapterMessages.WRONG_DB, false);
                 }
                 else
                 {
-                    string jsonString = File.ReadAllText(Resources.ConnectionString);
+                    string jsonString = File.ReadAllText(Resources.Database.ConnectionString);
                     Dictionary<string, List<string>> values = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(jsonString);
                     if (!values.ContainsKey(userid))
                     {
-                        result = new AdapterPresentation(Messages.USER_UNKNOWN, false);
+                        result = new AdapterPresentation(AdapterMessages.USER_UNKNOWN, false);
                     }
                     else
                     {
                         if (!values[userid].Contains(hostname))
                         {
-                            result = new AdapterPresentation(Messages.USER_UNREGISTERED, false);
+                            result = new AdapterPresentation(AdapterMessages.USER_UNREGISTERED, false);
                         }
                         else
                         {

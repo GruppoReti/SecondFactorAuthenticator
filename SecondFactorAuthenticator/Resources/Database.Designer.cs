@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SecondFactorAuthenticator {
+namespace SecondFactorAuthenticator.Resources {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace SecondFactorAuthenticator {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    internal class Database {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal Database() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace SecondFactorAuthenticator {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SecondFactorAuthenticator.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SecondFactorAuthenticator.Resources.Database", typeof(Database).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -75,41 +75,6 @@ namespace SecondFactorAuthenticator {
         internal static string DatabaseType {
             get {
                 return ResourceManager.GetString("DatabaseType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;p&gt;You have been authenticated.&lt;br/&gt;
-        ///You can continue to your application.&lt;/p&gt;
-        ///
-        ///&lt;form method=&quot;post&quot; id=&quot;loginForm&quot; autocomplete=&quot;off&quot;&gt;
-        ///&lt;input id=&quot;context&quot; type=&quot;hidden&quot; name=&quot;Context&quot; value=&quot;%Context%&quot;/&gt;
-        ///&lt;input id=&quot;authMethod&quot; type=&quot;hidden&quot; name=&quot;AuthMethod&quot; value=&quot;%AuthMethod%&quot;/&gt;
-        ///&lt;input id=&quot;continueButton&quot; type=&quot;submit&quot; name=&quot;Continue&quot; value=&quot;Continue&quot; /&gt;
-        ///&lt;/form&gt;
-        ///&lt;script&gt;
-        ///window.onload = function(){
-        ///  document.forms[&apos;loginForm&apos;].submit()
-        ///}
-        ///&lt;/script&gt;.
-        /// </summary>
-        internal static string PageHtmlForm {
-            get {
-                return ResourceManager.GetString("PageHtmlForm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;div id=&quot;messageArea&quot;&gt;
-        ///    &lt;p&gt;You have not been granted access to this application.&lt;/p&gt;
-        ///	&lt;p&gt;The message returned from server is:&lt;br/&gt;
-        ///	&lt;i&gt;{0}&lt;/i&gt;
-        ///	&lt;/p&gt;
-        ///&lt;/div&gt;.
-        /// </summary>
-        internal static string PageHtmlMessage {
-            get {
-                return ResourceManager.GetString("PageHtmlMessage", resourceCulture);
             }
         }
     }

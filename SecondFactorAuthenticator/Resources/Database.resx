@@ -125,29 +125,4 @@
     <value>JSON</value>
     <comment>Database type, at the moment only supported JSON database.</comment>
   </data>
-  <data name="PageHtmlForm" xml:space="preserve">
-    <value>&lt;p&gt;You have been authenticated.&lt;br/&gt;
-You can continue to your application.&lt;/p&gt;
-
-&lt;form method="post" id="loginForm" autocomplete="off"&gt;
-&lt;input id="context" type="hidden" name="Context" value="%Context%"/&gt;
-&lt;input id="authMethod" type="hidden" name="AuthMethod" value="%AuthMethod%"/&gt;
-&lt;input id="continueButton" type="submit" name="Continue" value="Continue" /&gt;
-&lt;/form&gt;
-&lt;script&gt;
-window.onload = function(){
-  document.forms['loginForm'].submit()
-}
-&lt;/script&gt;</value>
-    <comment>Autosubmitting form that creates user authentication and grant access to the application.</comment>
-  </data>
-  <data name="PageHtmlMessage" xml:space="preserve">
-    <value>&lt;div id="messageArea"&gt;
-    &lt;p&gt;You have not been granted access to this application.&lt;/p&gt;
-	&lt;p&gt;The message returned from server is:&lt;br/&gt;
-	&lt;i&gt;{0}&lt;/i&gt;
-	&lt;/p&gt;
-&lt;/div&gt;</value>
-    <comment>Error HTML page showing the reason why the access has not been granted to the user.</comment>
-  </data>
 </root>

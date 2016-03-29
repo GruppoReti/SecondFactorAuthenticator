@@ -12,26 +12,23 @@ namespace SecondFactorAuthenticator
 
         public string GetPageTitle(int lcid)
         {
-            Dictionary<int, string> result = new Dictionary<int, string>() {
-                { new CultureInfo("en-us").LCID, "Check of the association user - hostname" },
-                { new CultureInfo("it").LCID, "Controllo associazione utente - hostname" }
-            };
-            return result[lcid] ?? result[Messages.defaultLcid];
+            return AdapterMessages.getMessage(AdapterMessages.PAGE_TITLE, lcid);
         }
 
         public string GetFormHtml(int lcid)
         {
-            // TODO: support multilanguage for these 2 HTML pages
             if (!this.isPermanentFailure)
             {
                 if (String.IsNullOrEmpty(this.message))
                 {
-                    return Resources.PageHtmlForm;
+                    string html = AdapterMessages.getMessage("PageHtmlForm", lcid);
+                    return html;
                 }
                 else
                 {
-                    string localizedMessage = Messages.getMessage(this.message, lcid);
-                    return string.Format(Resources.PageHtmlMessage, localizedMessage);
+                    string localizedMessage = AdapterMessages.getMessage(this.message, lcid);
+                    string html = AdapterMessages.getMessage("PageHtmlMessage", lcid);
+                    return string.Format(html, localizedMessage);
                 }
             }
 

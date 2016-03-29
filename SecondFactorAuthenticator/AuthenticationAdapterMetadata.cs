@@ -18,7 +18,12 @@ namespace SecondFactorAuthenticator
 
         public int[] AvailableLcids
         {
-            get { return new int[] { new CultureInfo("en-us").LCID, new CultureInfo("it").LCID }; }
+            get {
+                return new int[] {
+                    new CultureInfo("en-us").LCID,
+                    new CultureInfo("it-it").LCID
+                };
+            }
         }
 
         public Dictionary<int, string> Descriptions
@@ -26,8 +31,10 @@ namespace SecondFactorAuthenticator
             get
             {
                 Dictionary<int, string> result = new Dictionary<int, string>();
-                result.Add(new CultureInfo("en-us").LCID, "Authentication based on user-hostname association");
-                result.Add(new CultureInfo("it").LCID, "Autenticazione basata sull'associazione utente-hostname");
+                foreach (int i in AvailableLcids)
+                {
+                    result.Add(i, AdapterMessages.getMessage(AdapterMessages.ADAPTER_DESCRIPTION, i));
+                }
                 return result;
             }
         }
@@ -37,8 +44,10 @@ namespace SecondFactorAuthenticator
             get
             {
                 Dictionary<int, string> result = new Dictionary<int, string>();
-                result.Add(new CultureInfo("en-us").LCID, "Authentication based on user-hostname association");
-                result.Add(new CultureInfo("it").LCID, "Autenticazione basata sull'associazione utente-hostname");
+                foreach (int i in AvailableLcids)
+                {
+                    result.Add(i, AdapterMessages.getMessage(AdapterMessages.ADAPTER_DESCRIPTION, i));
+                }
                 return result;
             }
         }
