@@ -1,0 +1,14 @@
+*.cache
+*.suo
+*.user
+bin
+obj
+_ReSharper.*
+*.swp
+TestResults
+*.coverage
+*.coveragexml
+packages
+.sonar
+packages.config
+.vs
