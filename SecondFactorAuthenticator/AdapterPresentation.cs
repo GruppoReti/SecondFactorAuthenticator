@@ -9,14 +9,14 @@ namespace SecondFactorAuthenticator
     {
         private readonly string message;
         private readonly bool isPermanentFailure;
-        private readonly static int defaultLcid = new CultureInfo("en-us").LCID;
 
         public string GetPageTitle(int lcid)
         {
-            Dictionary<int, string> result = new Dictionary<int, string>();
-            result.Add(new CultureInfo("en-us").LCID, "Check of the association user - hostname");
-            result.Add(new CultureInfo("it").LCID, "Controllo associazione utente - hostname");
-            return result[lcid] ?? result[defaultLcid];
+            Dictionary<int, string> result = new Dictionary<int, string>() {
+                { new CultureInfo("en-us").LCID, "Check of the association user - hostname" },
+                { new CultureInfo("it").LCID, "Controllo associazione utente - hostname" }
+            };
+            return result[lcid] ?? result[Messages.defaultLcid];
         }
 
         public string GetFormHtml(int lcid)
@@ -24,13 +24,14 @@ namespace SecondFactorAuthenticator
             // TODO: support multilanguage for these 2 HTML pages
             if (!this.isPermanentFailure)
             {
-                if (string.IsNullOrEmpty(message))
+                if (String.IsNullOrEmpty(this.message))
                 {
                     return Resources.PageHtmlForm;
                 }
                 else
                 {
-                    return string.Format(Resources.PageHtmlMessage, this.message);
+                    string localizedMessage = Messages.getMessage(this.message, lcid);
+                    return string.Format(Resources.PageHtmlMessage, localizedMessage);
                 }
             }
 
@@ -44,7 +45,7 @@ namespace SecondFactorAuthenticator
 
         public AdapterPresentation(string message = null, bool isPermanentFailure = false)
         {
-            this.message = message ?? string.Empty;
+            this.message = message ?? String.Empty;
             this.isPermanentFailure = isPermanentFailure;
         }
     }

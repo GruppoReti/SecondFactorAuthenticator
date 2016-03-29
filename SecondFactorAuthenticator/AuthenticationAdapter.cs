@@ -63,8 +63,7 @@ namespace SecondFactorAuthenticator
         {
             claims = null;
 
-            // TODO: support multilanguage for the error messages.
-            IAdapterPresentation result = new AdapterPresentation("Unsupported database type in configuration.", false);
+            IAdapterPresentation result = new AdapterPresentation(Messages.UNSUPPORTED_DB, false);
             string userid = (string)context.Data["userid"];
             string hostname = GetHostName(request.RemoteEndPoint.Address.ToString());
 
@@ -72,7 +71,7 @@ namespace SecondFactorAuthenticator
             {
                 if (Resources.ConnectionString == null)
                 {
-                    result = new AdapterPresentation("Wrong database filename in configuration.", false);
+                    result = new AdapterPresentation(Messages.WRONG_DB, false);
                 }
                 else
                 {
@@ -80,13 +79,13 @@ namespace SecondFactorAuthenticator
                     Dictionary<string, List<string>> values = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(jsonString);
                     if (!values.ContainsKey(userid))
                     {
-                        result = new AdapterPresentation("Unknown user in database.", false);
+                        result = new AdapterPresentation(Messages.USER_UNKNOWN, false);
                     }
                     else
                     {
                         if (!values[userid].Contains(hostname))
                         {
-                            result = new AdapterPresentation("User trying to access from client not registerd into database.", false);
+                            result = new AdapterPresentation(Messages.USER_UNREGISTERED, false);
                         }
                         else
                         {
