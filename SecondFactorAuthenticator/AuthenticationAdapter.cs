@@ -5,11 +5,14 @@ using System.Security.Claims;
 using System.Collections.Generic;
 using Microsoft.IdentityServer.Web.Authentication.External;
 using Newtonsoft.Json;
+using SecondFactorAuthenticator.Database;
 
 namespace SecondFactorAuthenticator
 {
     public class AuthenticationAdapter : IAuthenticationAdapter
     {
+        IDatabase databaseConnection = null;
+
         private string GetHostName(string ipAddress)
         {
             try
@@ -69,7 +72,17 @@ namespace SecondFactorAuthenticator
         /// <param name="configData">The configuration data for the AD FS.</param>
         public void OnAuthenticationPipelineLoad(IAuthenticationMethodConfigData configData)
         {
-            // Do nothing special.
+            if (Resources.Database.DatabaseType == JsonDatabase.ID)
+            {
+                databaseConnection = new JsonDatabase();
+            }
+
+            if (databaseConnection == null)
+            {
+                throw new DatabaseException(AdapterMessages.UNSUPPORTED_DB);
+            }
+
+            databaseConnection.StartConnection();
         }
 
         /// <summary>
@@ -78,7 +91,10 @@ namespace SecondFactorAuthenticator
         /// </summary>
         public void OnAuthenticationPipelineUnload()
         {
-            // Do nothing special.
+            if (databaseConnection != null)
+            {
+                databaseConnection.CloseConnection();
+            }
         }
 
         /// <summary>
@@ -109,40 +125,25 @@ namespace SecondFactorAuthenticator
         {
             claims = null;
 
-            IAdapterPresentation result = new AdapterPresentation(AdapterMessages.UNSUPPORTED_DB, false);
             string userid = (string)context.Data["userid"];
             string hostname = GetHostName(request.RemoteEndPoint.Address.ToString());
             
-            if (Resources.Database.DatabaseType == "JSON")
+            try
             {
-                if (Resources.Database.ConnectionString == null)
+                List<string> hosts = databaseConnection.GetAllowedHosts(userid);
+                if (!hosts.Contains(hostname))
                 {
-                    result = new AdapterPresentation(AdapterMessages.WRONG_DB, false);
+                    return new AdapterPresentation(AdapterMessages.USER_UNREGISTERED, false);
                 }
-                else
-                {
-                    string jsonString = File.ReadAllText(Resources.Database.ConnectionString);
-                    Dictionary<string, List<string>> values = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(jsonString);
-                    if (!values.ContainsKey(userid))
-                    {
-                        result = new AdapterPresentation(AdapterMessages.USER_UNKNOWN, false);
-                    }
-                    else
-                    {
-                        if (!values[userid].Contains(hostname))
-                        {
-                            result = new AdapterPresentation(AdapterMessages.USER_UNREGISTERED, false);
-                        }
-                        else
-                        {
-                            Claim claim = new Claim("http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod", "http://schemas.microsoft.com/ws/2012/12/authmethod/otp");
-                            claims = new Claim[] { claim };
-                            result = null;
-                        }
-                    }
-                }
+                
+                Claim claim = new Claim("http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod", "http://schemas.microsoft.com/ws/2012/12/authmethod/otp");
+                claims = new Claim[] { claim };
+                return null;
             }
-            return result;
+            catch (DatabaseException ex)
+            {
+                return new AdapterPresentation(ex.Message, false);
+            }
         }
     }
 }

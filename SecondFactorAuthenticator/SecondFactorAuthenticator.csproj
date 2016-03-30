@@ -63,6 +63,9 @@
     <Compile Include="AuthenticationAdapter.cs" />
     <Compile Include="AuthenticationAdapterMetadata.cs" />
     <Compile Include="AdapterMessages.cs" />
+    <Compile Include="Database\DatabaseException.cs" />
+    <Compile Include="Database\IDatabase.cs" />
+    <Compile Include="Database\JsonDatabase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Database.Designer.cs">
       <DependentUpon>Database.resx</DependentUpon>

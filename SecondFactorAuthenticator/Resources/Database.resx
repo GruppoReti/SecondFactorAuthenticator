@@ -125,4 +125,12 @@
     <value>JSON</value>
     <comment>Database type, at the moment only supported JSON database.</comment>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value />
+    <comment>The password to be used to connect to the database.</comment>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value />
+    <comment>The user name to be used to connect to the database.</comment>
+  </data>
 </root>
