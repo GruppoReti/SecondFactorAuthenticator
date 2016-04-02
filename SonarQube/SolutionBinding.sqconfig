@@ -1,0 +1,4 @@
+{
+  "ServerUri": "http://sonar.localdomain:9000/",
+  "ProjectKey": "SeccondFactorAuthenticator"
+}

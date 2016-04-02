@@ -25,7 +25,10 @@ namespace SecondFactorAuthenticator
             try
             {
                 string message = Resources.Messages.ResourceManager.GetString(MessageId, new CultureInfo(lcid));
-                if (message == null) throw new Exception("Message is null in resource file.");
+                if (message == null)
+                {
+                    throw new Exception("Message is null in resource file.");
+                }
                 return message;
             }
             catch

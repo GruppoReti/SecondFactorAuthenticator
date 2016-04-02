@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Text;
 using System.Security.Cryptography;
-using System;
 
 namespace SecondFactorAuthenticator.Database
 {
@@ -14,7 +13,7 @@ namespace SecondFactorAuthenticator.Database
         string fileHash = null;
 
         /// <summary>
-        /// Method that starts the database connection verifying proper configuration
+        /// Method that starts the database connection verifying proper configuration.
         /// </summary>
         public void StartConnection()
         {

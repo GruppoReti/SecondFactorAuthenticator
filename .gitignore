@@ -11,3 +11,4 @@ TestResults
 packages
 .sonar
 .vs
+.sonarqube
