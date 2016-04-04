@@ -14,9 +14,9 @@ $publish.GacInstall($location + "\it-it\" + $dllName + ".resources.dll")
 #$publish.GacRemove($location + "\it-it\" + $dllName + ".resources.dll")
 
 # Register/Unregister AuthN mechanism in ADFS
-$typeName = "SecondFactorAuthenticator.AuthenticationAdapter, SecondFactorAuthenticator, Version=" + $dllVersion + ", Culture=neutral, PublicKeyToken=" + $publicKeyToken
-Register-AdfsAuthenticationProvider -TypeName $typeName -Name "SecondFactorAuthenticator" -Verbose
-#Unregister-AdfsAuthenticationProvider -Name "SecondFactorAuthenticator" -Verbose
+$typeName = $dllName + ".AuthenticationAdapter, " + $dllName + ", Version=" + $dllVersion + ", Culture=neutral, PublicKeyToken=" + $publicKeyToken
+Register-AdfsAuthenticationProvider -TypeName $typeName -Name $dllName -Verbose
+#Unregister-AdfsAuthenticationProvider -Name $dllName -Verbose
 
 # Restart ADFS
 #net stop adfssrv
